@@ -45,11 +45,12 @@ public:
 
 int main()
 {
-	//Matrix matrix1(3, 3);
-	//matrix1.populateMatrix();
+	Matrix matrix1(3, 3);
+	matrix1.populateMatrix();
+	matrix1.printMatrix();
 
-	cout << "enter input: ";
 	int test;
-	cin >> test;
 	cout << "done";
+	cout << matrix1.data[0][2];
+	cin >> test;
 }
