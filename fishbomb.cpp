@@ -2,26 +2,38 @@
 
 using namespace std;
 
+void initMatrix();
+void populateMatrix();
+void printMatrix();
+
 class Matrix
 {
 public:
 	int rows;
 	int columns;
-	int *data[];
+	int **data;	//points to integer pointers
 
 	Matrix(int r, int c)
 	{
 		rows = r;
 		columns = c;
-		*data = new int(r);
+		initMatrix();
+	}
+
+	void initMatrix()
+	{
+		data = new int*[rows];
+		for (int i = 0; i < rows; i++)
+		{
+			data[i] = new int[columns];
+		}
 	}
 
 	void populateMatrix()
 	{
 		int temp;
-		for (int i = 0; i < rows; i++)
+		for(int i = 0; i < rows; i++)
 		{
-			data[i] = new int(columns);
 			for (int j = 0; j < columns; j++)
 			{
 				cin >> temp;
@@ -51,6 +63,5 @@ int main()
 
 	int test;
 	cout << "done";
-	cout << matrix1.data[0][2];
 	cin >> test;
 }
