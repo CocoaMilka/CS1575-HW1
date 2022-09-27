@@ -1,3 +1,5 @@
+//Joshua Ghilino CS 1575 Section 101
+
 #include <iostream>
 
 using namespace std;
@@ -9,10 +11,13 @@ void totalFish();
 
 class Matrix
 {
-public:
+private:
+
 	int rows;
 	int columns;
 	int **data;	//points to integer pointers
+	
+public:
 
 	Matrix(int r, int c)
 	{
@@ -65,7 +70,7 @@ public:
 		}
 	}
 
-	void totalFish()
+	void totalFish()	//Calculates optimial position and how many fish are caught
 	{
 		int* rowTotal = new int[rows];
 		int* columnTotal = new int[columns];
@@ -121,7 +126,6 @@ int main()
 	int numOfTestCases;
 
 	cin >> numOfTestCases;
-	cout << endl;
 
 	for (int i = 0; i < numOfTestCases; i++)
 	{
@@ -130,13 +134,9 @@ int main()
 		Matrix matrix(rows, columns);
 
 		matrix.populateMatrix();
-		matrix.printMatrix();
+		//matrix.printMatrix(); For debugging purposes 
 
 		cout << "#" << i << ": ";
 		matrix.totalFish();
 	}
-
-	int test;
-	cout << "done";
-	cin >> test;
 }
