@@ -5,6 +5,7 @@ using namespace std;
 void initMatrix();
 void populateMatrix();
 void printMatrix();
+void totalFish();
 
 class Matrix
 {
@@ -18,6 +19,16 @@ public:
 		rows = r;
 		columns = c;
 		initMatrix();
+	}
+
+	~Matrix() //Stop them memory leaks! >:D
+	{
+		for(int i = 0; i < rows; i++)
+		{
+			delete data[i];
+		}
+
+		delete[] data;
 	}
 
 	void initMatrix()	//Allocates memory for the rows and columns of the matrix
@@ -53,6 +64,53 @@ public:
 			cout << endl;
 		}
 	}
+
+	void totalFish()
+	{
+		int* rowTotal = new int[rows];
+		int* columnTotal = new int[columns];
+
+		int row;
+		int column;
+		int maxFish = 0;
+
+		//Sum rows
+		for (int i = 0; i < rows; i++)
+		{
+			for (int j = 0; j < columns; j++)
+			{
+				rowTotal[i] += data[i][j];
+			}
+		}
+
+		//Sum columns
+		for (int i = 0; i < columns; i++)
+		{
+			for (int j = 0; j < rows; j++)
+			{
+				columnTotal[i] += data[j][i];
+			}
+		}
+
+		//Find optimal position by adding row sum + column sum - intersection
+		for (int i = 0; i < rows; i++)
+		{
+			for (int j = 0; j < columns; j++)
+			{
+				if (rowTotal[i] + columnTotal[j] - data[i][j] > maxFish)
+				{
+					maxFish = rowTotal[i] + columnTotal[j] - data[i][j];
+					row = i;
+					column = j;
+				}
+			}
+		}
+
+		cout << "at (" << row << "," << column << ") Bender catches " << maxFish << " fish." << endl;
+
+		delete[] rowTotal;
+		delete[] columnTotal;
+	}
 };
 
 int main()
@@ -61,7 +119,7 @@ int main()
 	int columns;
 
 	int numOfTestCases;
-	cout << "Num of test cases: ";
+
 	cin >> numOfTestCases;
 	cout << endl;
 
@@ -70,8 +128,12 @@ int main()
 		cin >> rows;
 		cin >> columns;
 		Matrix matrix(rows, columns);
+
 		matrix.populateMatrix();
 		matrix.printMatrix();
+
+		cout << "#" << i << ": ";
+		matrix.totalFish();
 	}
 
 	int test;
